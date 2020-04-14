@@ -8,17 +8,23 @@ struct Conteiner {
 	int tempoInsercao;
 };
 
+enum class Estado {
+	DISPONIVEL,
+	INSERINDO,
+	REMOVENDO,
+};
+
 struct Empilhadeira {
 	int tempoOcupada;
+	Estado estado;
 };
 
-struct Slots { //bool pra gente fazer if(nav->conteudo){}
-	Pilha<Conteiner> pilha[50];
+struct Slots {
+	Pilha<Conteiner> pilha[500];
 };
 
-template <int n>
 struct FilasCaminhoes {
-	Fila<bool> filaCaminhoes[n];
+	Fila<bool> fila;
 };
 
 #endif
