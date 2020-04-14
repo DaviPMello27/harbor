@@ -5,11 +5,15 @@
 #include "pilha.h"
 
 struct Conteiner {
-	int tempoInserção;
+	int tempoInsercao;
+};
+
+struct Empilhadeira {
+	int tempoOcupada;
 };
 
 struct Slots { //bool pra gente fazer if(nav->conteudo){}
-	Pilha<Conteiner> pilha[5];
+	Pilha<Conteiner> pilha[50];
 };
 
 template <int n>
