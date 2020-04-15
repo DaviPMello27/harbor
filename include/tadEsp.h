@@ -9,10 +9,17 @@ void inicializaSlots(Slots &slots){
 	}
 }
 
-void inicializaEmpilhadeiras(Empilhadeira empilhadeiras[30]){
-	for(int i = 0; i < 30; i++){
+void inicializaEmpilhadeiras(Empilhadeira empilhadeiras[QTD_EMPILHADEIRAS]){
+	for(int i = 0; i < QTD_EMPILHADEIRAS; i++){
 		empilhadeiras[i].tempoOcupada = 0;
 		empilhadeiras[i].estado = Estado::DISPONIVEL;
+	}
+}
+
+template <class type>
+void inicializaCaminhoes(Fila<type> fila[QTD_FILAS_CAMINHOES]){
+	for(int i = 0; i < QTD_FILAS_CAMINHOES; i++){
+		fila[i].primeiro = NULL;
 	}
 }
 
@@ -46,8 +53,8 @@ bool removeUmConteiner(Slots &slots, int &conteineresArmazenados){
 	return false;
 }
 
-void dTempoEmpilhadeiras(Empilhadeira empilhadeiras[30], Fila<bool> &caminhoes, Slots &slots, int &contArmaz){
-	for(int i = 0; i < 30; i++){
+void dTempoEmpilhadeiras(Empilhadeira empilhadeiras[30], Slots &slots, int &contArmaz){
+	for(int i = 0; i < QTD_EMPILHADEIRAS; i++){
 		if(empilhadeiras[i].tempoOcupada){
 			empilhadeiras[i].tempoOcupada--;
 		}
