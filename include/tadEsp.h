@@ -30,7 +30,7 @@ bool insereUmConteiner(Slots &slots, Empilhadeira &empilhadeira){
 				push(slots.pilha[slot], {numeroConteineres});
 				empilhadeira.tempoOcupada = 1 + numeroConteineres;
 				empilhadeira.estado = Estado::INSERINDO;
-				std::cout << "Inserindo no slot [" << slot << "] na altura " << numeroConteineres << ";\n";
+				//std::cout << "Inserindo no slot [" << slot << "] na altura " << numeroConteineres << ";\n";
 				return true;
 			}
 		}
@@ -53,16 +53,23 @@ bool removeUmConteiner(Slots &slots, int &conteineresArmazenados){
 	return false;
 }
 
-void dTempoEmpilhadeiras(Empilhadeira empilhadeiras[30], Slots &slots, int &contArmaz){
+void dTempoEmpilhadeiras(Empilhadeira empilhadeiras[30], Fila<bool> caminhoes[]){
 	for(int i = 0; i < QTD_EMPILHADEIRAS; i++){
 		if(empilhadeiras[i].tempoOcupada){
 			empilhadeiras[i].tempoOcupada--;
 		}
 		if(!empilhadeiras[i].tempoOcupada){
 			if(empilhadeiras[i].estado == Estado::REMOVENDO){
-				std::cout << "Container Removido.\n";
+				for(int fila = 0; fila < QTD_FILAS_CAMINHOES; fila++){
+					if(retornaTamanho(caminhoes[fila])){
+						if(!caminhoes[fila].primeiro->conteudo){
+							dequeue(caminhoes[fila]);
+							//std::cout << "Container Removido.\n";
+						}
+					}
+				}
 			} else if(empilhadeiras[i].estado == Estado::INSERINDO){
-				std::cout << "Container Inserido.\n";
+				//std::cout << "Container Inserido.\n";
 			}
 			empilhadeiras[i].estado = Estado::DISPONIVEL;
 		}
