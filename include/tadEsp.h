@@ -9,16 +9,16 @@ void inicializaSlots(Slots &slots){
 	}
 }
 
-void inicializaEmpilhadeiras(Empilhadeira empilhadeiras[QTD_EMPILHADEIRAS]){
-	for(int i = 0; i < QTD_EMPILHADEIRAS; i++){
+void inicializaEmpilhadeiras(Empilhadeira empilhadeiras[], Terminal terminal){
+	for(int i = 0; i < terminal.quantidadeEmpilhadeiras; i++){
 		empilhadeiras[i].tempoOcupada = 0;
 		empilhadeiras[i].estado = Estado::DISPONIVEL;
 	}
 }
 
 template <class type>
-void inicializaCaminhoes(Fila<type> fila[QTD_FILAS_CAMINHOES]){
-	for(int i = 0; i < QTD_FILAS_CAMINHOES; i++){
+void inicializaCaminhoes(Fila<type> fila[], Terminal terminal){
+	for(int i = 0; i < terminal.quantidadeFilas; i++){
 		fila[i].primeiro = NULL;
 	}
 }
@@ -53,14 +53,14 @@ bool removeUmConteiner(Slots &slots, int &conteineresArmazenados){
 	return false;
 }
 
-void dTempoEmpilhadeiras(Empilhadeira empilhadeiras[30], Fila<bool> caminhoes[]){
-	for(int i = 0; i < QTD_EMPILHADEIRAS; i++){
+void dTempoEmpilhadeiras(Empilhadeira empilhadeiras[], Fila<bool> caminhoes[], Terminal terminal){
+	for(int i = 0; i < terminal.quantidadeEmpilhadeiras; i++){
 		if(empilhadeiras[i].tempoOcupada){
 			empilhadeiras[i].tempoOcupada--;
 		}
 		if(!empilhadeiras[i].tempoOcupada){
 			if(empilhadeiras[i].estado == Estado::REMOVENDO){
-				for(int fila = 0; fila < QTD_FILAS_CAMINHOES; fila++){
+				for(int fila = 0; fila < terminal.quantidadeFilas; fila++){
 					if(retornaTamanho(caminhoes[fila])){
 						if(!caminhoes[fila].primeiro->conteudo){
 							dequeue(caminhoes[fila]);

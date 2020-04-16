@@ -8,6 +8,13 @@ struct Conteiner {
 	int tempoInsercao;
 };
 
+struct Terminal{
+	int conteineresPendentes;
+	int conteineresArmazenados;
+	int quantidadeEmpilhadeiras;
+	int quantidadeFilas;
+};
+
 enum class Estado {
 	DISPONIVEL,
 	INSERINDO,
