@@ -13,9 +13,13 @@ void solicitaEntradas(Terminal &terminal){
 	std::cin >> terminal.quantidadeEmpilhadeiras;
 	std::cout << "Insira a quantidade de filas para caminhoes: ";
 	std::cin >> terminal.quantidadeFilas;
+	std::cout << "Insira o modo de simulacao.\n";
+	std::cout << "1 - Apresentar resultados ao final.\n";
+	std::cout << "2 - Acompanhar simulacao em tempo real.\n";
+	std::cin >> terminal.modoOperacao;
+	terminal.modoOperacao--;
 }
 
-//Enviar um cerr quando todas empilhadeiras estiverem ocupadas *Douglas
 void insereContaineres(Slots &slots, Empilhadeira empilhadeiras[], Terminal &terminal){
 	for(int i = 0; i < terminal.quantidadeEmpilhadeiras; i++){
 		if(empilhadeiras[i].estado == Estado::DISPONIVEL && terminal.conteineresPendentes){

@@ -13,6 +13,7 @@ struct Terminal{
 	int conteineresArmazenados;
 	int quantidadeEmpilhadeiras;
 	int quantidadeFilas;
+	int modoOperacao;
 };
 
 enum class Estado {
