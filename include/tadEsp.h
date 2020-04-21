@@ -3,26 +3,28 @@
 
 #include "structs.h"
 
+//Funções de inicialização.
+
+//Slots.
 void inicializaSlots(Slots &slots){
 	for(int i = 0; i < 500; i++){
 		slots.pilha[i].topo = NULL;
 	}
 }
-
+//Empilhadeiras.
 void inicializaEmpilhadeiras(Empilhadeira empilhadeiras[], Terminal terminal){
 	for(int i = 0; i < terminal.quantidadeEmpilhadeiras; i++){
 		empilhadeiras[i].tempoOcupada = 0;
 		empilhadeiras[i].estado = Estado::DISPONIVEL;
 	}
 }
-
-template <class type>
-void inicializaCaminhoes(Fila<type> fila[], Terminal terminal){
+//Caminhões.
+void inicializaCaminhoes(Fila<bool> fila[], Terminal terminal){
 	for(int i = 0; i < terminal.quantidadeFilas; i++){
 		fila[i].primeiro = NULL;
 	}
 }
-
+//Inserção de conteiner.
 bool insereUmConteiner(Slots &slots, Empilhadeira &empilhadeira){
 	for(int numeroConteineres = 0; numeroConteineres < 6; numeroConteineres++){
 		for(int slot = 0; slot < 500; slot++){
@@ -30,7 +32,6 @@ bool insereUmConteiner(Slots &slots, Empilhadeira &empilhadeira){
 				push(slots.pilha[slot], {numeroConteineres});
 				empilhadeira.tempoOcupada = 1 + numeroConteineres;
 				empilhadeira.estado = Estado::INSERINDO;
-				//std::cout << "Inserindo no slot [" << slot << "] na altura " << numeroConteineres << ";\n";
 				return true;
 			}
 		}
@@ -38,7 +39,7 @@ bool insereUmConteiner(Slots &slots, Empilhadeira &empilhadeira){
 	std::cerr << "Todos os slots estão ocupados.\n";
 	return false;
 }
-
+//Remoção de conteiner.
 bool removeUmConteiner(Slots &slots, int &conteineresArmazenados){
 	for(int numeroConteineres = 1; numeroConteineres < 6; numeroConteineres++){
 		for(int slot = 0; slot < 500; slot++){
@@ -52,7 +53,7 @@ bool removeUmConteiner(Slots &slots, int &conteineresArmazenados){
 	}
 	return false;
 }
-
+//Gerênciamento de tempo das empilhadeiras.
 void dTempoEmpilhadeiras(Empilhadeira empilhadeiras[], Fila<bool> caminhoes[], Terminal terminal){
 	for(int i = 0; i < terminal.quantidadeEmpilhadeiras; i++){
 		if(empilhadeiras[i].tempoOcupada){
@@ -64,12 +65,9 @@ void dTempoEmpilhadeiras(Empilhadeira empilhadeiras[], Fila<bool> caminhoes[], T
 					if(retornaTamanho(caminhoes[fila])){
 						if(!caminhoes[fila].primeiro->conteudo){
 							dequeue(caminhoes[fila]);
-							//std::cout << "Container Removido.\n";
 						}
 					}
 				}
-			} else if(empilhadeiras[i].estado == Estado::INSERINDO){
-				//std::cout << "Container Inserido.\n";
 			}
 			empilhadeiras[i].estado = Estado::DISPONIVEL;
 		}
